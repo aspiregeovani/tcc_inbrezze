@@ -78,25 +78,54 @@ class _HomePageState extends State<HomePage> {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('inBreeze - TCC'),
+        title: Text('TCC - UNIP'),
+        backgroundColor: Colors.blue[600],
+        elevation: 4.0,
+        actions: [
+          IconButton(icon: Icon(Icons.search), onPressed: null),
+        ],
+        leading: Icon(Icons.list),
       ),
       body: _model == ""
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+          ? Container(
+              margin: const EdgeInsets.all(50),
+              width: 1000,
+              height: 130,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
-                    child: const Text(ssd),
-                    onPressed: () => onSelect(ssd),
-                  ),
-                  RaisedButton(
-                    child: const Text(yolo),
-                    onPressed: () => onSelect(yolo),
-                  ),
-                  RaisedButton(
-                    child: const Text(mobilenet),
-                    onPressed: () => onSelect(mobilenet),
-                  ),
+                  FlatButton(
+                      color: Colors.white,
+                      onPressed: () => {},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      padding: new EdgeInsets.all(40),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.view_list,
+                            color: Colors.grey[850],
+                            size: 50.0,
+                          ),
+                        ],
+                      )),
+                  FlatButton(
+                      color: Colors.white,
+                      // child: const Text(mobilenet),
+                      onPressed: () => onSelect(ssd),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      padding: new EdgeInsets.all(40),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.camera_alt,
+                            color: Colors.grey[850],
+                            size: 50.0,
+                          ),
+                        ],
+                      )),
                 ],
               ),
             )
