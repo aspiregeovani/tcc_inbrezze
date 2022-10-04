@@ -40,15 +40,8 @@ class _HomePageState extends State<HomePage> {
       case mobilenet:
         res = await Tflite.loadModel(
             model: "assets/mobilenet_v1_1.0_224.tflite",
-            // model:
-            // "object_detection_mobile_object_localizer_v1_1_default_1.tflite",
             labels: "assets/mobilenet_v1_1.0_224.txt");
         break;
-
-      // case posenet:
-      //   res = await Tflite.loadModel(
-      //       model: "assets/posenet_mv1_075_float_from_checkpoints.tflite");
-      //   break;
 
       default:
         res = await Tflite.loadModel(
@@ -82,51 +75,77 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blue[600],
         elevation: 4.0,
         actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: null),
+          IconButton(icon: Icon(Icons.mic), onPressed: null),
         ],
-        leading: Icon(Icons.list),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('inBreeze - TCC Unip Ciência da Computação'),
+            ),
+            ListTile(
+              title: const Text('Geovane Martins de Moraes - D895940'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text('Gabriel Garcia - XXXXXX'),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text('Caio Tenório - XXXXXX'),
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
       body: _model == ""
-          ? Container(
-              margin: const EdgeInsets.all(50),
-              width: 1000,
-              height: 130,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FlatButton(
-                      color: Colors.white,
-                      onPressed: () => {},
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      padding: new EdgeInsets.all(40),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.view_list,
-                            color: Colors.grey[850],
-                            size: 50.0,
-                          ),
-                        ],
-                      )),
-                  FlatButton(
-                      color: Colors.white,
-                      // child: const Text(mobilenet),
-                      onPressed: () => onSelect(ssd),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      padding: new EdgeInsets.all(40),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.camera_alt,
-                            color: Colors.grey[850],
-                            size: 50.0,
-                          ),
-                        ],
-                      )),
-                ],
+          ? Center(
+              child: Container(
+                margin: const EdgeInsets.all(50),
+                height: 130,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    FlatButton(
+                        color: Colors.white,
+                        onPressed: () => {},
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16))),
+                        padding: new EdgeInsets.all(40),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.search,
+                              color: Colors.grey[850],
+                              size: 50.0,
+                            ),
+                          ],
+                        )),
+                    FlatButton(
+                        color: Colors.white,
+                        // child: const Text(mobilenet),
+                        onPressed: () => onSelect(ssd),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16))),
+                        padding: new EdgeInsets.all(40),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.camera_alt,
+                              color: Colors.grey[850],
+                              size: 50.0,
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
               ),
             )
           : Stack(
@@ -145,6 +164,12 @@ class _HomePageState extends State<HomePage> {
                     _model),
               ],
             ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        backgroundColor: Colors.white,
+        label: const Text('Listar'),
+        icon: const Icon(Icons.view_list),
+      ),
     );
   }
 }
