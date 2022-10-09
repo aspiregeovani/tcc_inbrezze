@@ -7,6 +7,8 @@ import 'camera.dart';
 import 'bndbox.dart';
 import 'models.dart';
 
+List<CameraDescription> cameras;
+
 class HomePage extends StatefulWidget {
   final List<CameraDescription> cameras;
 
