@@ -1,19 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:camera/camera.dart';
 
 import 'detection_screen.dart';
-
-Future<Null> getCameras() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    return cameras = await availableCameras();
-  } on CameraException catch (e) {
-    print('Error: $e.code\nError Message: $e.message');
-  }
-}
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -43,7 +32,7 @@ Widget _introScreen() {
             Color.fromRGBO(30, 144, 255, 0)
           ],
         ),
-        navigateAfterSeconds: HomePage(cameras),
+        navigateAfterSeconds: HomePage([]),
         loaderColor: Colors.transparent,
       ),
       Container(

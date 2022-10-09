@@ -7,8 +7,6 @@ import 'camera.dart';
 import 'bndbox.dart';
 import 'models.dart';
 
-List<CameraDescription> cameras;
-
 class HomePage extends StatefulWidget {
   final List<CameraDescription> cameras;
 
@@ -23,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
-
+  List<CameraDescription> cameras;
   @override
   void initState() {
     super.initState();
@@ -31,6 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   loadModel() async {
     String res;
+    cameras = await availableCameras();
+
     switch (_model) {
       case yolo:
         res = await Tflite.loadModel(
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: const Text('Caio Tenório - XXXXXX'),
               onTap: () {},
-            ),
+            )
           ],
         ),
       ),
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
           : Stack(
               children: [
                 Camera(
-                  widget.cameras,
+                  cameras,
                   _model,
                   setRecognitions,
                 ),
