@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
-      home: HomePage(cameras),
+      home: MyHomePage(title: 'Teste'),
     );
   }
 }

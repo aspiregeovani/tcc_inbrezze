@@ -27,6 +27,8 @@ dev_dependencies:
   camera: 0.5.7+4
 
   tflite: 1.0.4
+
+  splashscreen: ^1.2.0
   
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -51,6 +53,7 @@ flutter:
    - assets/mobilenet_v1_1.0_224.tflite
    - assets/mobilenet_v1_1.0_224.txt
    - assets/posenet_mv1_075_float_from_checkpoints.tflite
+   - assets/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
