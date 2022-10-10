@@ -39,7 +39,7 @@ Widget _introScreen() {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/logo.png"),
-            fit: BoxFit.none,
+            fit: BoxFit.contain,
           ),
         ),
       ),
