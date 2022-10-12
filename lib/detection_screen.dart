@@ -21,7 +21,9 @@ class _HomePageState extends State<HomePage> {
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
-  List<CameraDescription> cameras;
+
+  List<CameraDescription> cameras = [];
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +31,13 @@ class _HomePageState extends State<HomePage> {
 
   loadModel() async {
     String res;
-    cameras = await availableCameras();
+
+    WidgetsFlutterBinding.ensureInitialized();
+    try {
+      cameras = await availableCameras();
+    } on CameraException catch (e) {
+      print('Error: $e.code\nError Message: $e.message');
+    }
 
     switch (_model) {
       case yolo:
@@ -200,9 +208,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
+        onPressed: () {},
         backgroundColor: Colors.white,
         label: const Text('Listar'),
         icon: const Icon(Icons.view_list),

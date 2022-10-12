@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'splash_screen.dart';
-import 'detection_screen.dart';
 
 List<CameraDescription> cameras;
 
