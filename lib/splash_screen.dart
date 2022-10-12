@@ -23,7 +23,7 @@ Widget _introScreen() {
   return Stack(
     children: <Widget>[
       SplashScreen(
-        seconds: 5,
+        seconds: 3,
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,

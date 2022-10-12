@@ -82,25 +82,58 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
+          children: <Widget>[
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('inBreeze - TCC Unip Ciência da Computação'),
+              child: Stack(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage('https://i.imgur.com/ZtIxMZd.png'),
+                      /* https://i.imgur.com/WhZWsSB.png - Fundo transparente */
+                      radius: 50.0,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'inBreeze - TCC Unip',
+                      style: TextStyle(color: Colors.white, fontSize: 17.0),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight + Alignment(0, .3),
+                    child: Text(
+                      'Ciência da Computação',
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             ListTile(
               title: const Text('Geovane Martins de Moraes - D895940'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
             ListTile(
-              title: const Text('Gabriel Garcia - XXXXXX'),
-              onTap: () {},
+              title: const Text('Gabriel Garcia dos Santos - N449241'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
             ListTile(
-              title: const Text('Caio Tenório - XXXXXX'),
-              onTap: () {},
+              title: const Text('Caio Tenório da Silva - F1001E0'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             )
           ],
         ),
@@ -167,7 +200,9 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
         backgroundColor: Colors.white,
         label: const Text('Listar'),
         icon: const Icon(Icons.view_list),
