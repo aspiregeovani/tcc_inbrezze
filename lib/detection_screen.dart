@@ -6,6 +6,7 @@ import 'dart:math' as math;
 import 'camera.dart';
 import 'bndbox.dart';
 import 'models.dart';
+import 'second_screen_listview.dart';
 
 class HomePage extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -208,11 +209,18 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          _irParaProximaPagina(context);
+        },
         backgroundColor: Colors.white,
         label: const Text('Listar'),
         icon: const Icon(Icons.view_list),
       ),
     );
+  }
+
+  void _irParaProximaPagina(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => TelaListagemItens()));
   }
 }

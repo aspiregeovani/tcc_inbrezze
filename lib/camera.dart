@@ -28,6 +28,10 @@ class _CameraState extends State<Camera> {
 
     if (widget.cameras == null || widget.cameras.length < 1) {
       print('Nenhuma câmera foi encontrada!');
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+            'Câmera não foi encontrada! Limpe os caches e tente novamente.'),
+      ));
     } else {
       controller = new CameraController(
         widget.cameras[0],
