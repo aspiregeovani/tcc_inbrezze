@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 import 'dart:math' as math;
 import 'models.dart';
 
@@ -9,9 +10,10 @@ class BndBox extends StatelessWidget {
   final double screenH;
   final double screenW;
   final String model;
+  String objetoAEncontrar;
 
   BndBox(this.results, this.previewH, this.previewW, this.screenH, this.screenW,
-      this.model);
+      this.model, this.objetoAEncontrar);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,14 @@ class BndBox extends StatelessWidget {
         var _w = re["rect"]["w"];
         var _y = re["rect"]["y"];
         var _h = re["rect"]["h"];
+
+        var _objectDetected = re["detectedClass"];
+
+        if (objetoAEncontrar.toUpperCase() == _objectDetected.toUpperCase()) {
+          Vibration.vibrate(duration: 300);
+          print(_objectDetected);
+        }
+
         var scaleW, scaleH, x, y, w, h;
 
         if (screenH / screenW > previewH / previewW) {

@@ -38,7 +38,9 @@ class ListViewHome extends State<ListViewHomeLayout> {
         itemBuilder: (context, index) {
           return Card(
               child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context, titles[index]);
+                  },
                   title: Text(titles[index]),
                   subtitle: Text(subtitles[index])));
         });

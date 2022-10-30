@@ -25,7 +25,6 @@ class _CameraState extends State<Camera> {
   @override
   void initState() {
     super.initState();
-
     if (widget.cameras == null || widget.cameras.length < 1) {
       print('Nenhuma câmera foi encontrada!');
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -62,6 +61,7 @@ class _CameraState extends State<Camera> {
                 print("Detection took ${endTime - startTime}");
 
                 widget.setRecognitions(recognitions, img.height, img.width);
+                print(recognitions);
 
                 isDetecting = false;
               });
@@ -78,6 +78,7 @@ class _CameraState extends State<Camera> {
                 print("Detection took ${endTime - startTime}");
 
                 widget.setRecognitions(recognitions, img.height, img.width);
+                print(recognitions);
 
                 isDetecting = false;
               });
@@ -98,6 +99,7 @@ class _CameraState extends State<Camera> {
                 print("Detection took ${endTime - startTime}");
 
                 widget.setRecognitions(recognitions, img.height, img.width);
+                print(recognitions.toList());
 
                 isDetecting = false;
               });

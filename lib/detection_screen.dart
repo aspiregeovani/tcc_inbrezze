@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   int _imageHeight = 0;
   int _imageWidth = 0;
   String _model = "";
+  String _objectDetected = "";
 
   List<CameraDescription> cameras = [];
 
@@ -62,9 +63,10 @@ class _HomePageState extends State<HomePage> {
     print(res);
   }
 
-  onSelect(model) {
+  onSelect(model, objectDetected) {
     setState(() {
       _model = model;
+      _objectDetected = objectDetected;
     });
     loadModel();
   }
@@ -174,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                     FlatButton(
                         color: Colors.white,
                         // child: const Text(mobilenet),
-                        onPressed: () => onSelect(ssd),
+                        onPressed: () => onSelect(ssd, ''),
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(16))),
@@ -205,7 +207,8 @@ class _HomePageState extends State<HomePage> {
                     math.min(_imageHeight, _imageWidth),
                     screen.height,
                     screen.width,
-                    _model),
+                    _model,
+                    _objectDetected),
               ],
             ),
       floatingActionButton: FloatingActionButton.extended(
@@ -219,8 +222,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _irParaProximaPagina(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => TelaListagemItens()));
+  _irParaProximaPagina(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TelaListagemItens()));
+
+    onSelect(ssd, result);
   }
 }
