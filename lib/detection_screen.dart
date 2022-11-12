@@ -231,11 +231,17 @@ class _HomePageState extends State<HomePage> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _irParaProximaPagina(context);
+          if (_model == "") {
+            _irParaProximaPagina(context);
+          } else {
+            setState(() {
+              _model = "";
+            });
+          }
         },
         backgroundColor: Colors.white,
-        label: const Text('Listar'),
-        icon: const Icon(Icons.view_list),
+        label: Text(_model == "" ? 'Listar' : 'Voltar'),
+        icon: Icon(_model == "" ? Icons.view_list : Icons.keyboard_return),
       ),
     );
   }
@@ -245,7 +251,13 @@ class _HomePageState extends State<HomePage> {
         context, MaterialPageRoute(builder: (context) => TelaListagemItens()));
 
     if (result != null) {
-      onSelect(ssd, result);
+      WidgetsFlutterBinding.ensureInitialized();
+      try {
+        cameras = await availableCameras();
+        onSelect(ssd, result);
+      } on CameraException catch (e) {
+        print('Error: $e.code\nError Message: $e.message');
+      }
     }
   }
 
@@ -258,6 +270,7 @@ class _HomePageState extends State<HomePage> {
           return AlertDialog(
             title: const Text('Digite o objeto que quer procurar'),
             content: TextField(
+              autofocus: true,
               controller: _textFieldController,
               decoration: const InputDecoration(
                   hintText: "Digite ou fale através do microfone"),
