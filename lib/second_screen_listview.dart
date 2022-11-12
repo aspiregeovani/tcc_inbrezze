@@ -5,7 +5,7 @@ class TelaListagemItens extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('TCC - UNIP'),
+          title: Text('Escolha o objeto para ser focado.'),
           backgroundColor: Colors.blue[600],
           elevation: 4.0,
         ),

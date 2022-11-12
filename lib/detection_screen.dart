@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:inBreeze/searchScreen.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 
@@ -23,6 +24,9 @@ class _HomePageState extends State<HomePage> {
   int _imageWidth = 0;
   String _model = "";
   String _objectDetected = "";
+  String codeDialog;
+  String valueText;
+  String teste;
 
   List<CameraDescription> cameras = [];
 
@@ -158,8 +162,22 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     FlatButton(
-                        color: Colors.white,
-                        onPressed: () => {},
+                        onPressed: () async {
+                          var resultLabel = await _showTextInputDialog(context);
+                          if (resultLabel != null) {
+                            setState(() {
+                              teste = resultLabel;
+                            });
+
+                            try {
+                              cameras = await availableCameras();
+                              onSelect(ssd, teste);
+                            } on CameraException catch (e) {
+                              print(
+                                  'Error: $e.code\nError Message: $e.message');
+                            }
+                          }
+                        },
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(16))),
@@ -226,6 +244,48 @@ class _HomePageState extends State<HomePage> {
     final result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => TelaListagemItens()));
 
+    if (result != null) {
+      onSelect(ssd, result);
+    }
+  }
+
+  _goToSearchScreen(BuildContext context) async {
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => TelaSearchScreen()));
+
+    try {
+      cameras = await availableCameras();
+    } on CameraException catch (e) {
+      print('Error: $e.code\nError Message: $e.message');
+    }
     onSelect(ssd, result);
+  }
+
+  final _textFieldController = TextEditingController();
+
+  Future<String> _showTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Digite o Objeto a Procurar'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: const InputDecoration(
+                  hintText: "Digite ou fale através do microfone"),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text("Cancelar"),
+                onPressed: () => Navigator.pop(context),
+              ),
+              FlatButton(
+                child: const Text('OK'),
+                onPressed: () =>
+                    Navigator.pop(context, _textFieldController.text),
+              ),
+            ],
+          );
+        });
   }
 }
