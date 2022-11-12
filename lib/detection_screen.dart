@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:inBreeze/searchScreen.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 
@@ -24,9 +23,7 @@ class _HomePageState extends State<HomePage> {
   int _imageWidth = 0;
   String _model = "";
   String _objectDetected = "";
-  String codeDialog;
-  String valueText;
-  String teste;
+  String _objectDetectedPopUp = "";
 
   List<CameraDescription> cameras = [];
 
@@ -162,16 +159,19 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     FlatButton(
+                        color: Colors.white,
                         onPressed: () async {
                           var resultLabel = await _showTextInputDialog(context);
+
                           if (resultLabel != null) {
                             setState(() {
-                              teste = resultLabel;
+                              _objectDetectedPopUp =
+                                  resultLabel.toLowerCase().trim();
                             });
 
                             try {
                               cameras = await availableCameras();
-                              onSelect(ssd, teste);
+                              onSelect(ssd, _objectDetectedPopUp);
                             } on CameraException catch (e) {
                               print(
                                   'Error: $e.code\nError Message: $e.message');
@@ -249,18 +249,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _goToSearchScreen(BuildContext context) async {
-    final result = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TelaSearchScreen()));
-
-    try {
-      cameras = await availableCameras();
-    } on CameraException catch (e) {
-      print('Error: $e.code\nError Message: $e.message');
-    }
-    onSelect(ssd, result);
-  }
-
   final _textFieldController = TextEditingController();
 
   Future<String> _showTextInputDialog(BuildContext context) async {
@@ -268,7 +256,7 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Digite o Objeto a Procurar'),
+            title: const Text('Digite o objeto que quer procurar'),
             content: TextField(
               controller: _textFieldController,
               decoration: const InputDecoration(
@@ -281,8 +269,11 @@ class _HomePageState extends State<HomePage> {
               ),
               FlatButton(
                 child: const Text('OK'),
-                onPressed: () =>
-                    Navigator.pop(context, _textFieldController.text),
+                onPressed: () => Navigator.pop(
+                    context,
+                    _textFieldController.text != ""
+                        ? _textFieldController.text
+                        : null),
               ),
             ],
           );
