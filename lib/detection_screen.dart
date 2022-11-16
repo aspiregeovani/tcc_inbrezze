@@ -84,14 +84,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TCC - UNIP'),
-        backgroundColor: Colors.blue[600],
-        elevation: 4.0,
-        actions: [
-          IconButton(icon: Icon(Icons.mic), onPressed: null),
-        ],
-      ),
+      appBar: _model != ""
+          ? null
+          : AppBar(
+              title: Text('TCC - UNIP'),
+              backgroundColor: Colors.blue[600],
+              elevation: 4.0,
+            ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
